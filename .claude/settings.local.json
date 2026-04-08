@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.makana.com)",
+      "WebFetch(domain:www.basworld.com)",
+      "WebFetch(domain:www.famco-usedequipment.com)",
+      "Read(//d/Code Files/**)",
+      "Bash(npx create-next-app@latest famco-temp --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --use-npm)",
+      "Bash(npm run:*)",
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(curl -s http://localhost:3000/equipment)"
+    ]
+  }
+}
