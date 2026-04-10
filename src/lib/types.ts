@@ -55,6 +55,6 @@ export const CATEGORY_SLUGS: Record<Category, string> = {
   "Industrial Machinery": "industrial-machinery",
 };
 
-export const MAKES = ["Volvo", "CAT", "Komatsu", "Doosan", "Linde", "Yanmar", "SDLG"];
+export const MAKES = ["Volvo", "CAT", "Komatsu", "Doosan", "Linde", "Yanmar", "SDLG", "Gorica"];
 export const LOCATIONS = ["UAE", "KSA", "Qatar", "Bahrain"];
 export const CONDITIONS: Product["condition"][] = ["Excellent", "Good", "Fair"];
