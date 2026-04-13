@@ -6,10 +6,11 @@ import { ArrowUpRight } from "lucide-react";
 import { AnimateIn } from "@/components/ui/animate-in";
 
 const DISCOVER_LINKS = [
-  { label: "Equipment", href: "/equipment" },
-  { label: "About", href: "#about" },
-  { label: "How It Works", href: "#" },
-  { label: "Contact", href: "#contact" },
+  { label: "Buy Equipment", href: "/equipment" },
+  { label: "Sell Equipment", href: "/sell" },
+  { label: "Inspections & Certification", href: "/inspections" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const CATEGORIES_LINKS = [
@@ -28,10 +29,10 @@ const SOCIAL_LINKS = [
 ];
 
 const SUPPORT_LINKS = [
-  { label: "FAQ", href: "#" },
-  { label: "Privacy Policy", href: "#" },
-  { label: "Terms & Conditions", href: "#" },
-  { label: "Cookie Policy", href: "#" },
+  { label: "FAQ", href: "/faq" },
+  { label: "Privacy Policy", href: "/privacy" },
+  { label: "Terms & Conditions", href: "/terms" },
+  { label: "Cookie Policy", href: "/cookies" },
 ];
 
 export function Footer() {

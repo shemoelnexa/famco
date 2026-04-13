@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import {
   ShieldCheck,
-  Phone,
   Heart,
   ChevronDown,
   MapPin,
@@ -11,6 +11,9 @@ import {
   Clock,
   Gauge,
   Truck,
+  Check,
+  Banknote,
+  ClipboardCheck,
 } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
 import { cn } from "@/lib/utils";
@@ -19,6 +22,23 @@ import type { Product } from "@/lib/types";
 interface InfoPanelProps {
   product: Product;
 }
+
+const conditionColors: Record<string, string> = {
+  Excellent: "bg-emerald-500/10 text-emerald-700",
+  Good: "bg-amber-500/10 text-amber-700",
+  Fair: "bg-orange-500/10 text-orange-700",
+};
+
+const inspectionItems = [
+  "Engine & drivetrain",
+  "Hydraulic system",
+  "Electrical systems",
+  "Structural integrity",
+  "Brake & steering",
+  "Cabin & controls",
+  "Tyres / undercarriage",
+  "Fluid levels & leaks",
+];
 
 function Accordion({
   title,
@@ -35,7 +55,7 @@ function Accordion({
     <div className="border-t border-black/[0.06]">
       <button
         onClick={() => setOpen(!open)}
-        className="flex w-full items-center justify-between py-5 text-left"
+        className="flex w-full items-center justify-between py-4 text-left"
       >
         <span className="text-[15px] font-semibold text-black">{title}</span>
         <ChevronDown
@@ -67,8 +87,6 @@ export function InfoPanel({ product }: InfoPanelProps) {
       ? product.specifications["Mileage"] || "N/A"
       : `${product.hours.toLocaleString()} hrs`;
 
-  const hoursOrMileageLabel = isTruckOrBus && product.hours === 0 ? "Mileage" : "Hours";
-
   return (
     <div className="lg:sticky lg:top-28">
       {/* Category */}
@@ -77,63 +95,122 @@ export function InfoPanel({ product }: InfoPanelProps) {
       </p>
 
       {/* Title */}
-      <h1 className="mt-2 text-[28px] sm:text-[32px] font-semibold text-black tracking-tighter leading-[1.1]">
+      <h1 className="mt-2 text-[26px] sm:text-[30px] font-semibold text-black tracking-tighter leading-[1.1]">
         {product.title}
       </h1>
 
-      {/* Price */}
-      <p className="mt-3 text-[24px] font-bold text-black tracking-tight">
-        {formatPrice(product.price, product.currency)}
-      </p>
-
-      {/* Badges */}
-      {product.certified && (
-        <div className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-famco-blue/8 px-3 py-1.5 text-[12px] font-medium text-famco-blue">
-          <ShieldCheck className="size-3.5" />
-          FAMCO Approved · Inspected {product.inspectionDate}
-        </div>
-      )}
-
-      {/* Quick specs row */}
-      <div className="mt-5 flex flex-wrap gap-3">
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-black/[0.04] px-3.5 py-2 text-[13px] text-black/60">
-          <Calendar className="size-3.5" />
-          {product.year}
-        </span>
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-black/[0.04] px-3.5 py-2 text-[13px] text-black/60">
-          <Clock className="size-3.5" />
-          {hoursOrMileageValue}
-        </span>
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-black/[0.04] px-3.5 py-2 text-[13px] text-black/60">
-          <MapPin className="size-3.5" />
-          {product.location}
-        </span>
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-black/[0.04] px-3.5 py-2 text-[13px] text-black/60">
-          <Gauge className="size-3.5" />
+      {/* Price + Condition */}
+      <div className="mt-3 flex items-center gap-3">
+        <p className="text-[24px] font-bold text-black tracking-tight">
+          {formatPrice(product.price, product.currency)}
+        </p>
+        <span className={`inline-flex items-center rounded-md px-2 py-0.5 text-[12px] font-semibold ${conditionColors[product.condition] || "bg-gray-100 text-gray-600"}`}>
           {product.condition}
         </span>
       </div>
 
-      {/* CTA row */}
-      <div className="mt-7 flex items-center gap-3">
-        <button className="btn-primary btn-shimmer flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-[#1a1a1a] text-white h-12 text-[15px] font-medium transition-all hover:bg-black">
-          <Phone className="size-4" />
-          Enquire Now
+      {/* Badges row */}
+      <div className="mt-4 flex flex-wrap gap-2">
+        {product.certified && (
+          <span className="inline-flex items-center gap-1.5 rounded-lg bg-famco-blue/8 px-3 py-1.5 text-[12px] font-medium text-famco-blue">
+            <ShieldCheck className="size-3.5" />
+            FAMCO Approved
+          </span>
+        )}
+        <span className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-500/8 px-3 py-1.5 text-[12px] font-medium text-emerald-700">
+          <ClipboardCheck className="size-3.5" />
+          52-Point Inspected
+        </span>
+      </div>
+
+      {/* Quick specs row */}
+      <div className="mt-5 flex flex-wrap gap-2">
+        <span className="inline-flex items-center gap-1.5 rounded-lg bg-black/[0.04] px-3 py-2 text-[13px] text-black/60">
+          <Calendar className="size-3.5" />
+          {product.year}
+        </span>
+        <span className="inline-flex items-center gap-1.5 rounded-lg bg-black/[0.04] px-3 py-2 text-[13px] text-black/60">
+          <Clock className="size-3.5" />
+          {hoursOrMileageValue}
+        </span>
+        <span className="inline-flex items-center gap-1.5 rounded-lg bg-black/[0.04] px-3 py-2 text-[13px] text-black/60">
+          <MapPin className="size-3.5" />
+          {product.location}
+        </span>
+      </div>
+
+      {/* CTA row — Reserve / Enquire / Finance */}
+      <div className="mt-6 space-y-2.5">
+        <div className="flex items-center gap-2.5">
+          <button className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-famco-blue text-white h-12 text-[15px] font-medium transition-all duration-200 hover:bg-famco-blue/90">
+            Reserve with Deposit
+          </button>
+          <button className="flex size-12 items-center justify-center rounded-xl border border-black/10 transition-all hover:bg-black/[0.03]">
+            <Heart className="size-5 text-black/40" />
+          </button>
+        </div>
+        <button className="w-full inline-flex items-center justify-center gap-2 rounded-xl border border-black/10 bg-white h-12 text-[15px] font-medium text-black transition-all duration-200 hover:bg-black/[0.03]">
+          Enquire About This Machine
         </button>
-        <button className="btn-outline flex size-12 items-center justify-center rounded-full border border-black/12 transition-all hover:bg-black/[0.04]">
-          <Heart className="size-5 text-black/50" />
-        </button>
+        <Link
+          href="/contact"
+          className="w-full inline-flex items-center justify-center gap-2 rounded-xl h-10 text-[13px] font-medium text-black/50 transition-colors hover:text-black"
+        >
+          <Banknote className="size-4" />
+          Contact us for financing options
+        </Link>
+      </div>
+
+      {/* Inspection Report — visible, not in accordion */}
+      <div className="mt-6 rounded-xl border border-black/[0.06] p-5">
+        <div className="flex items-center gap-2 mb-4">
+          <ShieldCheck className="size-5 text-famco-blue" />
+          <h3 className="text-[15px] font-semibold text-black">Inspection Report</h3>
+          <span className="ml-auto text-[12px] text-black/35">
+            {new Date(product.inspectionDate).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            })}
+          </span>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          {inspectionItems.map((item) => (
+            <div key={item} className="flex items-center gap-2">
+              <div className="flex size-5 items-center justify-center rounded-full bg-emerald-500/10">
+                <Check className="size-3 text-emerald-600" />
+              </div>
+              <span className="text-[13px] text-black/60">{item}</span>
+            </div>
+          ))}
+        </div>
+        <div className="mt-3 flex items-center justify-between pt-3 border-t border-black/[0.04]">
+          <div>
+            <p className="text-[12px] text-black/35">Overall Grade</p>
+            <p className="text-[14px] font-semibold text-black">{product.condition}</p>
+          </div>
+          <div>
+            <p className="text-[12px] text-black/35">Status</p>
+            <p className="text-[14px] font-semibold text-emerald-600">
+              {product.certified ? "Certified" : "Pending"}
+            </p>
+          </div>
+          <div>
+            <p className="text-[12px] text-black/35">Inspected By</p>
+            <p className="text-[14px] font-semibold text-black">FAMCO Engineers</p>
+          </div>
+        </div>
       </div>
 
       {/* Accordion sections */}
-      <div className="mt-6">
+      <div className="mt-4">
         <Accordion title="Description & Details" defaultOpen>
           <p className="text-[14px] text-black/55 leading-relaxed">
             {product.description}
           </p>
         </Accordion>
 
-        <Accordion title="Specifications">
+        <Accordion title="Full Specifications">
           <div className="grid grid-cols-2 gap-x-6 gap-y-3">
             {Object.entries(product.specifications).map(([key, value]) => (
               <div key={key}>
@@ -148,40 +225,6 @@ export function InfoPanel({ product }: InfoPanelProps) {
             <div>
               <p className="text-[12px] text-black/35 uppercase tracking-wide">Model</p>
               <p className="text-[14px] font-medium text-black mt-0.5">{product.model}</p>
-            </div>
-          </div>
-        </Accordion>
-
-        <Accordion title="Inspection Report">
-          <div className="flex items-start gap-3 rounded-xl bg-famco-blue/5 p-4">
-            <ShieldCheck className="size-5 text-famco-blue shrink-0 mt-0.5" />
-            <div>
-              <p className="text-[14px] font-medium text-black">FAMCO Certified Inspection</p>
-              <div className="mt-3 grid grid-cols-2 sm:grid-cols-3 gap-3">
-                <div>
-                  <p className="text-[11px] text-black/35 uppercase tracking-wide">Date</p>
-                  <p className="text-[13px] font-medium text-black mt-0.5">
-                    {new Date(product.inspectionDate).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "short",
-                      day: "numeric",
-                    })}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-[11px] text-black/35 uppercase tracking-wide">Grade</p>
-                  <p className="text-[13px] font-medium text-black mt-0.5">{product.condition}</p>
-                </div>
-                <div>
-                  <p className="text-[11px] text-black/35 uppercase tracking-wide">Status</p>
-                  <p className="text-[13px] font-medium text-emerald-600 mt-0.5">
-                    {product.certified ? "Certified" : "Pending"}
-                  </p>
-                </div>
-              </div>
-              <p className="mt-3 text-[13px] text-black/45 leading-relaxed">
-                All mechanical, hydraulic, electrical, and structural components have been evaluated by FAMCO certified technicians.
-              </p>
             </div>
           </div>
         </Accordion>

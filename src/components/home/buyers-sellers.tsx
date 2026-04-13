@@ -27,7 +27,7 @@ const sellerProps = [
 
 export function BuyersSellers() {
   return (
-    <section className="bg-white py-28">
+    <section className="bg-white py-20">
       <div className="mx-auto max-w-[1100px] px-6 sm:px-10">
         <AnimateIn>
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 hover-focus-group">
@@ -75,7 +75,7 @@ export function BuyersSellers() {
               </ul>
               <div className="mt-8">
                 <Link
-                  href="#"
+                  href="/sell"
                   className="btn-outline inline-flex items-center justify-center rounded-full border border-black/20 text-black h-11 px-6 text-[14px] font-medium transition-colors hover:bg-black hover:text-white"
                 >
                   Submit Your Equipment

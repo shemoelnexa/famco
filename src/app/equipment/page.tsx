@@ -17,6 +17,7 @@ import { FilterSidebar } from "@/components/equipment/filter-sidebar";
 import { SortDropdown } from "@/components/equipment/sort-dropdown";
 import { Pagination } from "@/components/equipment/pagination";
 import { ProductCard } from "@/components/equipment/product-card";
+import { TrustStrip } from "@/components/ui/trust-strip";
 import { products } from "@/data/products";
 import {
   type FilterState,
@@ -170,6 +171,7 @@ function EquipmentContent() {
 
   return (
     <div className="min-h-screen bg-[#EFEEED] pt-28">
+      <TrustStrip />
       <div className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-10 pb-16">
         {/* Breadcrumb */}
         <nav className="mb-8 flex items-center gap-1.5 text-[13px] text-black/40">
@@ -190,13 +192,13 @@ function EquipmentContent() {
           </p>
         </div>
 
-        {/* Category Pills */}
-        <div className="mb-8 flex flex-wrap items-center gap-2.5">
+        {/* Category Pills — horizontal scroll on mobile */}
+        <div className="mb-8 flex items-center gap-2.5 overflow-x-auto no-scrollbar pb-1">
           <button
             onClick={() => handleCategoryPill(null)}
-            className={`rounded-full h-10 px-5 text-[14px] font-medium transition-all duration-300 tracking-[-0.01em] hover:scale-[1.03] ${
+            className={`shrink-0 rounded-full h-10 px-5 text-[14px] font-medium transition-all duration-200 tracking-[-0.01em] ${
               filters.categories.length === 0
-                ? "btn-primary bg-black text-white shadow-sm"
+                ? "bg-black text-white"
                 : "bg-white text-black/70 border border-black/12 hover:border-black/25 hover:text-black"
             }`}
           >
@@ -209,9 +211,9 @@ function EquipmentContent() {
               <button
                 key={cat}
                 onClick={() => handleCategoryPill(cat)}
-                className={`rounded-full h-10 px-5 text-[14px] font-medium transition-all duration-300 tracking-[-0.01em] hover:scale-[1.03] ${
+                className={`shrink-0 rounded-full h-10 px-5 text-[14px] font-medium transition-all duration-200 tracking-[-0.01em] ${
                   isActive
-                    ? "btn-primary bg-black text-white shadow-sm"
+                    ? "bg-black text-white"
                     : "bg-white text-black/70 border border-black/12 hover:border-black/25 hover:text-black"
                 }`}
               >

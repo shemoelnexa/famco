@@ -15,9 +15,9 @@ export function AnimateIn({
   children,
   className = "",
   delay = 0,
-  duration = 700,
+  duration = 500,
   direction = "up",
-  distance = 30,
+  distance = 20,
 }: AnimateInProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);

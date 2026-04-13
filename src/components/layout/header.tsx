@@ -7,10 +7,11 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 
 const NAV_LINKS = [
-  { label: "Home", href: "/" },
-  { label: "Equipment", href: "/equipment" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
+  { label: "Buy Equipment", href: "/equipment" },
+  { label: "Sell Equipment", href: "/sell" },
+  { label: "Inspections", href: "/inspections" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export function Header() {
@@ -69,7 +70,7 @@ export function Header() {
             {/* Centered Nav */}
             <nav className="hidden items-center gap-1 md:flex absolute left-1/2 -translate-x-1/2">
               {NAV_LINKS.map((link) => {
-                const isActive = pathname === link.href;
+                const isActive = pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href));
                 return (
                   <Link
                     key={link.href}

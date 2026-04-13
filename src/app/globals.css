@@ -150,23 +150,16 @@ html {
 }
 
 /* ==========================================
-   HOVER FOCUS/BLUR EFFECT
-   Parent gets group/focus class. Children blur when
-   sibling is hovered. Apply to any container.
+   HOVER FOCUS EFFECT (toned down — no blur)
    ========================================== */
-.hover-focus-group {
-  /* children default */
-}
 .hover-focus-group > * {
-  transition: opacity 0.4s ease, filter 0.4s ease;
+  transition: opacity 0.3s ease;
 }
 .hover-focus-group:hover > * {
-  opacity: 0.35;
-  filter: blur(1.5px);
+  opacity: 0.55;
 }
 .hover-focus-group:hover > *:hover {
   opacity: 1 !important;
-  filter: blur(0) !important;
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -357,7 +350,7 @@ button:active:not(:disabled), a:active {
   transform: translateY(0) scale(0.98);
 }
 
-/* Shimmer sweep effect on buttons */
+/* Shimmer sweep effect on buttons — subtle */
 .btn-shimmer::before {
   content: "";
   position: absolute;
@@ -368,7 +361,7 @@ button:active:not(:disabled), a:active {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 255, 255, 0.12),
+    rgba(255, 255, 255, 0.06),
     transparent
   );
   transition: left 0.5s ease;

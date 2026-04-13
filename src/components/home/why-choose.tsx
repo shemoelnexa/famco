@@ -30,7 +30,7 @@ const reasons = [
 
 export function WhyChoose() {
   return (
-    <section className="bg-[#F0F0F0] py-28">
+    <section className="bg-[#F0F0F0] py-20">
       <div className="mx-auto max-w-[1100px] px-6 sm:px-10">
         {/* Header */}
         <AnimateIn>

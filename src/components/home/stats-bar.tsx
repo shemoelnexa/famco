@@ -23,8 +23,8 @@ export function StatsBar() {
                   ${index > 0 ? "lg:border-l lg:border-black/[0.08]" : ""}
                   ${index === 2 ? "border-t border-black/[0.08] lg:border-t-0" : ""}
                   ${index === 3 ? "border-t border-black/[0.08] lg:border-t-0" : ""}
-                  group-hover/stats:opacity-40 group-hover/stats:blur-[1px]
-                  hover:!opacity-100 hover:!blur-0
+                  group-hover/stats:opacity-50
+                  hover:!opacity-100
                 `}
               >
                 {/* Number */}

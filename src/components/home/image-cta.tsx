@@ -38,7 +38,7 @@ export function ImageCta() {
                   Browse Equipment
                 </Link>
                 <Link
-                  href="#contact"
+                  href="/contact"
                   className="btn-outline rounded-full border border-white/30 text-white h-12 px-8 text-[15px] font-medium inline-flex items-center transition-all duration-300 hover:bg-white/10"
                 >
                   Contact Us
