@@ -142,7 +142,7 @@ export function InfoPanel({ product }: InfoPanelProps) {
       {/* CTA row — Reserve / Enquire / Finance */}
       <div className="mt-6 space-y-2.5">
         <div className="flex items-center gap-2.5">
-          <button className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-famco-blue text-white h-12 text-[15px] font-medium transition-all duration-200 hover:bg-famco-blue/90">
+          <button className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-famco-blue text-white h-12 text-[14px] sm:text-[15px] font-medium transition-all duration-200 hover:bg-famco-blue/90 whitespace-nowrap">
             Reserve with Deposit
           </button>
           <button className="flex size-12 items-center justify-center rounded-xl border border-black/10 transition-all hover:bg-black/[0.03]">

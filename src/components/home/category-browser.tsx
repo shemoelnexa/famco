@@ -101,7 +101,7 @@ export function CategoryBrowser() {
                         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-                      <div className="absolute inset-x-0 bottom-0 p-6">
+                      <div className="absolute inset-x-0 bottom-0 p-4 sm:p-6">
                         <div className="flex items-center gap-2.5">
                           <Icon className="size-5 text-white" />
                           <div>
@@ -141,7 +141,7 @@ export function CategoryBrowser() {
                         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-                      <div className="absolute inset-x-0 bottom-0 p-5">
+                      <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
                         <div className="flex items-center gap-2.5">
                           <Icon className="size-5 text-white" />
                           <div>

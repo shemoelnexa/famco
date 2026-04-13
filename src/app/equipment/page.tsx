@@ -17,7 +17,6 @@ import { FilterSidebar } from "@/components/equipment/filter-sidebar";
 import { SortDropdown } from "@/components/equipment/sort-dropdown";
 import { Pagination } from "@/components/equipment/pagination";
 import { ProductCard } from "@/components/equipment/product-card";
-import { TrustStrip } from "@/components/ui/trust-strip";
 import { products } from "@/data/products";
 import {
   type FilterState,
@@ -171,7 +170,6 @@ function EquipmentContent() {
 
   return (
     <div className="min-h-screen bg-[#EFEEED] pt-28">
-      <TrustStrip />
       <div className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-10 pb-16">
         {/* Breadcrumb */}
         <nav className="mb-8 flex items-center gap-1.5 text-[13px] text-black/40">
@@ -254,7 +252,7 @@ function EquipmentContent() {
                 <SlidersHorizontal className="size-4" />
                 Filters
               </SheetTrigger>
-              <SheetContent side="left" className="overflow-y-auto p-6 w-[320px]">
+              <SheetContent side="left" className="overflow-y-auto p-6 w-[85vw] sm:w-[320px]">
                 <SheetHeader className="p-0 mb-6">
                   <SheetTitle className="text-[18px] font-semibold tracking-[-0.02em]">
                     Filters

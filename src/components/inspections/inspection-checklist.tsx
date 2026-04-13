@@ -141,7 +141,7 @@ function ChecklistCategory({
           open ? "max-h-[500px]" : "max-h-0"
         )}
       >
-        <div className="px-5 pb-4 grid grid-cols-1 sm:grid-cols-2 gap-2">
+        <div className="px-4 sm:px-5 pb-4 grid grid-cols-1 sm:grid-cols-2 gap-2">
           {category.points.map((point) => (
             <div key={point} className="flex items-center gap-2.5 py-1.5">
               <div className="flex size-5 shrink-0 items-center justify-center rounded-full bg-emerald-500/10">

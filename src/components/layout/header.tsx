@@ -68,7 +68,7 @@ export function Header() {
             </Link>
 
             {/* Centered Nav */}
-            <nav className="hidden items-center gap-1 md:flex absolute left-1/2 -translate-x-1/2">
+            <nav className="hidden items-center gap-0.5 lg:flex absolute left-1/2 -translate-x-1/2">
               {NAV_LINKS.map((link) => {
                 const isActive = pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href));
                 return (
@@ -99,7 +99,7 @@ export function Header() {
             </nav>
 
             {/* CTA */}
-            <div className="hidden items-center gap-4 md:flex relative z-10">
+            <div className="hidden items-center gap-4 lg:flex relative z-10">
               <Link
                 href="/equipment"
                 className="btn-blue btn-shimmer rounded-full bg-famco-blue text-white h-10 px-6 text-[14px] font-medium inline-flex items-center transition-all duration-300"
@@ -109,7 +109,7 @@ export function Header() {
             </div>
 
             {/* Mobile Menu */}
-            <div className="md:hidden relative z-10">
+            <div className="lg:hidden relative z-10">
               <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
                 <SheetTrigger
                   render={

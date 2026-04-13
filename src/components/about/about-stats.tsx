@@ -37,7 +37,7 @@ export function AboutStats() {
                   hover:!opacity-100 hover:!blur-0"
               >
                 <div className="flex items-baseline">
-                  <span className="text-[clamp(36px,5vw,56px)] font-semibold text-white tracking-tighter leading-none transition-colors duration-300 group-hover/item:text-famco-blue">
+                  <span className="text-[clamp(28px,7vw,56px)] font-semibold text-white tracking-tighter leading-none transition-colors duration-300 group-hover/item:text-famco-blue">
                     <AnimatedCounter value={`${stat.number}${stat.suffix}`} />
                   </span>
                 </div>

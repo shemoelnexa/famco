@@ -109,7 +109,7 @@ export function FamcoApproved() {
               <button
                 key={phase.id}
                 onClick={() => setActivePhase(index)}
-                className={`shrink-0 flex items-center gap-3 rounded-xl px-5 py-3.5 transition-all duration-300 ${
+                className={`shrink-0 flex items-center gap-2.5 rounded-xl px-3.5 sm:px-5 py-3 sm:py-3.5 transition-all duration-300 ${
                   index === activePhase
                     ? "bg-white text-black"
                     : "bg-white/[0.05] text-white/50 hover:bg-white/[0.08] hover:text-white/70"
@@ -120,7 +120,7 @@ export function FamcoApproved() {
                   <p className={`text-[11px] font-medium uppercase tracking-wider ${index === activePhase ? "text-famco-blue" : "text-white/30"}`}>
                     {phase.tag}
                   </p>
-                  <p className="text-[14px] font-semibold tracking-tight">
+                  <p className="text-[13px] sm:text-[14px] font-semibold tracking-tight">
                     {phase.title}
                   </p>
                 </div>
@@ -179,7 +179,7 @@ export function FamcoApproved() {
                 </p>
 
                 {/* Checklist */}
-                <div className="mt-6 grid grid-cols-2 gap-2.5">
+                <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {active.checks.map((check) => (
                     <div
                       key={check.label}
@@ -248,9 +248,9 @@ export function FamcoApproved() {
                   </p>
                 </div>
               </div>
-              <div className="flex items-center gap-5">
+              <div className="flex items-center gap-3 sm:gap-5">
                 {["Inspected", "Refurbished", "Certified"].map((step, i) => (
-                  <div key={step} className="flex items-center gap-2">
+                  <div key={step} className="flex items-center gap-1.5 sm:gap-2">
                     {i > 0 && (
                       <div className="w-6 h-px bg-white/10 -ml-3 mr--1" />
                     )}

@@ -198,7 +198,7 @@ export function ImageGallery({ images, alt }: ImageGalleryProps) {
             "grid gap-2",
             images.length === 2 && "grid-cols-2",
             images.length === 3 && "grid-cols-3",
-            images.length >= 4 && "grid-cols-4"
+            images.length >= 4 && "grid-cols-3 sm:grid-cols-4"
           )}>
             {images.map((image, index) => (
               <button
@@ -296,7 +296,7 @@ export function ImageGallery({ images, alt }: ImageGalleryProps) {
           </div>
 
           {/* Image */}
-          <div className="flex-1 flex items-center justify-center px-16 relative">
+          <div className="flex-1 flex items-center justify-center px-4 sm:px-16 relative">
             {images.length > 1 && (
               <>
                 <button

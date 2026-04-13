@@ -29,7 +29,7 @@ export function StatsBar() {
               >
                 {/* Number */}
                 <div className="flex items-baseline">
-                  <span className="text-[clamp(48px,6vw,72px)] font-semibold text-black tracking-tighter leading-none transition-colors duration-300 group-hover/item:text-famco-blue">
+                  <span className="text-[clamp(36px,8vw,72px)] font-semibold text-black tracking-tighter leading-none transition-colors duration-300 group-hover/item:text-famco-blue">
                     <AnimatedCounter value={`${stat.number}${stat.suffix}`} />
                   </span>
                 </div>

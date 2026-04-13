@@ -70,7 +70,7 @@ export function Footer() {
             </div>
 
             {/* Right: Link columns */}
-            <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-4">
+            <div className="grid grid-cols-2 gap-x-6 gap-y-8 sm:gap-x-8 sm:gap-y-10 sm:grid-cols-4">
               {/* Discover */}
               <div>
                 <h3 className="text-[12px] font-medium uppercase tracking-[0.1em] text-white/30 mb-5">

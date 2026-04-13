@@ -85,7 +85,7 @@ export function Hero() {
               />
               <button
                 type="submit"
-                className="rounded-lg bg-famco-blue text-white h-10 px-6 text-[14px] font-medium transition-all duration-200 hover:bg-famco-blue/90 shrink-0"
+                className="rounded-lg bg-famco-blue text-white h-10 px-4 sm:px-6 text-[14px] font-medium transition-all duration-200 hover:bg-famco-blue/90 shrink-0"
               >
                 Search
               </button>
