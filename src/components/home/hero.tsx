@@ -276,6 +276,7 @@ export function Hero() {
                             uid={SKETCHFAB_UIDS.roadRoller1}
                             alt="Featured machine — interactive 3D"
                             autoSpin={0}
+                            recenterOnLoad
                             className="w-full h-full max-h-[520px]"
                           />
                         </div>
