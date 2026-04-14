@@ -6,7 +6,7 @@ export function ImageCta() {
     <section className="relative overflow-hidden">
       {/* Full-width background image */}
       <img
-        src="/images/products/product-2.jpg"
+        src="/images/famco-approved-truck.jpg"
         alt="FAMCO Approved Fleet"
         className="w-full h-[500px] sm:h-[550px] lg:h-[600px] object-cover"
       />

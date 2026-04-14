@@ -155,7 +155,7 @@ export function Footer() {
               <img
                 src="/images/famco-logo.png"
                 alt="Al-Futtaim FAMCO Used"
-                className="h-8 w-auto brightness-0 invert opacity-50"
+                className="h-8 w-auto"
               />
             </div>
             <p className="text-[13px] text-white/25 tracking-tight">

@@ -1,24 +1,24 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
-import { RotateCcw, ZoomIn, X, ChevronLeft, ChevronRight, Grid2x2, Images } from "lucide-react";
+import { RotateCcw, ZoomIn, X, ChevronLeft, ChevronRight, Grid2x2, Images, Box } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SketchfabViewer } from "@/components/3d/sketchfab-viewer";
+import { getModelForProduct } from "@/lib/models-3d";
 
 interface ImageGalleryProps {
   images: string[];
   alt: string;
+  productId?: string;
+  category?: string;
 }
 
-export function ImageGallery({ images, alt }: ImageGalleryProps) {
+export function ImageGallery({ images, alt, productId, category }: ImageGalleryProps) {
+  const model = getModelForProduct({ id: productId, category });
   const [activeIndex, setActiveIndex] = useState(0);
-  const [show360, setShow360] = useState(false);
+  const [show360, setShow360] = useState(true); // default to 3D View
   const [lightbox, setLightbox] = useState(false);
   const [showGrid, setShowGrid] = useState(false);
-
-  // 360 view state
-  const [dragStart, setDragStart] = useState<number | null>(null);
-  const [rotation, setRotation] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
 
   const handlePrev = useCallback(
     () => setActiveIndex((i) => (i === 0 ? images.length - 1 : i - 1)),
@@ -57,58 +57,27 @@ export function ImageGallery({ images, alt }: ImageGalleryProps) {
         {/* Main image area */}
         <div className="relative overflow-hidden rounded-2xl bg-[#F0EFEE] group">
           {show360 ? (
-            /* ---- 360 View Controller ---- */
-            <div
-              className={cn(
-                "aspect-[3/2] relative select-none",
-                isDragging ? "cursor-grabbing" : "cursor-grab"
-              )}
-              onMouseDown={(e) => { setDragStart(e.clientX); setIsDragging(true); }}
-              onMouseMove={(e) => {
-                if (dragStart !== null) {
-                  setRotation((r) => r + (e.clientX - dragStart) * 0.5);
-                  setDragStart(e.clientX);
-                }
-              }}
-              onMouseUp={() => { setDragStart(null); setIsDragging(false); }}
-              onMouseLeave={() => { setDragStart(null); setIsDragging(false); }}
-              onTouchStart={(e) => { setDragStart(e.touches[0].clientX); setIsDragging(true); }}
-              onTouchMove={(e) => {
-                if (dragStart !== null) {
-                  setRotation((r) => r + (e.touches[0].clientX - dragStart) * 0.5);
-                  setDragStart(e.touches[0].clientX);
-                }
-              }}
-              onTouchEnd={() => { setDragStart(null); setIsDragging(false); }}
-            >
-              <img
-                src={images[0]}
-                alt={alt}
-                className="h-full w-full object-cover transition-transform duration-100"
-                style={{ transform: `perspective(800px) rotateY(${rotation}deg)` }}
+            /* ---- Real 3D Model Viewer (Sketchfab) ---- */
+            <div className="aspect-[3/2] relative bg-gradient-to-br from-[#F4F4F4] to-[#E5E5E5]">
+              <SketchfabViewer
+                uid={model.uid}
+                alt={`${alt} — interactive 3D view`}
+                autoSpin={0}
+                showAr
+                className="absolute inset-0"
               />
 
-              {/* Overlay hint — fades on drag */}
-              <div className={cn(
-                "absolute inset-0 flex items-center justify-center pointer-events-none transition-opacity duration-300",
-                isDragging ? "opacity-0" : "opacity-100"
-              )}>
-                <div className="flex flex-col items-center gap-2 bg-black/50 backdrop-blur-sm rounded-xl px-6 py-4">
-                  <RotateCcw className="size-6 text-white animate-spin" style={{ animationDuration: "3s" }} />
-                  <span className="text-[13px] font-medium text-white">Drag to rotate</span>
-                </div>
-              </div>
-
               {/* Bottom bar */}
-              <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
-                <span className="rounded-lg bg-black/60 backdrop-blur-sm px-3 py-1.5 text-[12px] font-medium text-white">
-                  360° View
+              <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none">
+                <span className="rounded-lg bg-black/60 backdrop-blur-sm px-3 py-1.5 text-[12px] font-medium text-white inline-flex items-center gap-1.5 pointer-events-auto">
+                  <Box className="size-3.5" />
+                  Interactive 3D View · Drag, zoom, rotate
                 </span>
                 <button
-                  onClick={() => { setShow360(false); setRotation(0); }}
-                  className="rounded-lg bg-white/90 backdrop-blur-sm px-3 py-1.5 text-[12px] font-medium text-black transition-colors hover:bg-white"
+                  onClick={() => setShow360(false)}
+                  className="rounded-lg bg-white/90 backdrop-blur-sm px-3 py-1.5 text-[12px] font-medium text-black transition-colors hover:bg-white pointer-events-auto"
                 >
-                  Back to Photos
+                  View Photos
                 </button>
               </div>
             </div>
@@ -146,8 +115,8 @@ export function ImageGallery({ images, alt }: ImageGalleryProps) {
                   onClick={() => setShow360(true)}
                   className="flex items-center gap-1.5 rounded-lg bg-black/50 backdrop-blur-md px-3 py-2 text-[12px] font-medium text-white transition-colors hover:bg-black/70"
                 >
-                  <RotateCcw className="size-3.5" />
-                  360°
+                  <Box className="size-3.5" />
+                  3D View
                 </button>
                 <button
                   onClick={() => setLightbox(true)}

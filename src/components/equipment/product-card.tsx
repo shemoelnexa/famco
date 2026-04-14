@@ -1,7 +1,11 @@
+"use client";
+
 import Link from "next/link";
-import { ShieldCheck, Heart, ClipboardCheck } from "lucide-react";
+import { ShieldCheck, Heart, ClipboardCheck, RotateCw } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
 import type { Product } from "@/lib/types";
+import { SketchfabViewer } from "@/components/3d/sketchfab-viewer";
+import { getModelForProduct } from "@/lib/models-3d";
 
 interface ProductCardProps {
   product: Product;
@@ -14,16 +18,25 @@ const conditionColors: Record<string, string> = {
 };
 
 export function ProductCard({ product }: ProductCardProps) {
+  const model = getModelForProduct({ category: product.category, id: product.id });
+
   return (
     <div className="flex flex-col overflow-hidden rounded-2xl bg-white border border-black/[0.06] transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-      {/* Image area */}
+      {/* Image area — interactive 3D viewer (lazy-mounted in viewport, recentered) */}
       <Link href={`/equipment/${product.id}`} className="relative block">
-        <div className="relative aspect-[4/3] overflow-hidden">
-          <img
-            src={product.images[0]}
+        <div className="relative aspect-[4/3] overflow-hidden bg-[#F0EFEE]">
+          <SketchfabViewer
+            uid={model.uid}
             alt={product.title}
-            className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+            autoSpin={0}
+            className="absolute inset-0"
           />
+
+          {/* "360° View" badge */}
+          <div className="absolute bottom-2.5 left-2.5 inline-flex items-center gap-1.5 rounded-full bg-black/60 backdrop-blur-sm px-2.5 py-1 text-[10px] font-medium text-white pointer-events-none z-10">
+            <RotateCw className="size-3" />
+            360° View
+          </div>
 
           {/* Badges overlay */}
           <div className="absolute inset-x-0 top-0 flex items-start justify-between p-3">
@@ -46,8 +59,8 @@ export function ProductCard({ product }: ProductCardProps) {
 
           {/* Image count */}
           {product.images.length > 1 && (
-            <div className="absolute bottom-2.5 right-2.5 rounded-md bg-black/60 backdrop-blur-sm px-2 py-0.5 text-[11px] font-medium text-white">
-              1/{product.images.length}
+            <div className="absolute bottom-2.5 right-2.5 rounded-md bg-black/60 backdrop-blur-sm px-2 py-0.5 text-[11px] font-medium text-white pointer-events-none">
+              {product.images.length} photos
             </div>
           )}
         </div>

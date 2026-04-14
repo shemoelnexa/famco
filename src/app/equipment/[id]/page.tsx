@@ -37,7 +37,12 @@ export default async function ProductPage({
 
         {/* Main: gallery + info */}
         <div className="grid grid-cols-1 gap-6 sm:gap-10 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
-          <ImageGallery images={product.images} alt={product.title} />
+          <ImageGallery
+            images={product.images}
+            alt={product.title}
+            productId={product.id}
+            category={product.category}
+          />
           <InfoPanel product={product} />
         </div>
 
