@@ -17,7 +17,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { SketchfabViewer } from "@/components/3d/sketchfab-viewer";
-import { MODELS } from "@/lib/models-3d";
+import { SKETCHFAB_UIDS } from "@/lib/models-3d";
 
 const actions = [
   {
@@ -250,7 +250,7 @@ export function Hero() {
                       <div className="hidden lg:block self-stretch relative">
                         <div className="absolute inset-0 flex items-center justify-center">
                           <SketchfabViewer
-                            uid={MODELS["excavator"].uid}
+                            uid={SKETCHFAB_UIDS.roadRoller1}
                             alt="Featured machine — interactive 3D"
                             autoSpin={0}
                             className="w-full h-full max-h-[520px]"
