@@ -64,7 +64,6 @@ export function ImageGallery({ images, alt, productId, category }: ImageGalleryP
                 alt={`${alt} — interactive 3D view`}
                 autoSpin={0.2}
                 showAr
-                recenterOnLoad
                 className="absolute inset-0"
               />
 
