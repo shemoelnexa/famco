@@ -1,4 +1,5 @@
 import { Hero } from "@/components/home/hero";
+import { ThreePillars } from "@/components/home/three-pillars";
 import { TrustStrip } from "@/components/ui/trust-strip";
 import { CategoryBrowser } from "@/components/home/category-browser";
 import { FeaturedListings } from "@/components/home/featured-listings";
@@ -14,6 +15,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <ThreePillars />
       <TrustStrip />
       <CategoryBrowser />
       <FeaturedListings />
