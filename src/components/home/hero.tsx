@@ -119,14 +119,37 @@ export function Hero() {
                 key={slide.key}
                 className="relative shrink-0 grow-0 basis-full min-h-[640px] sm:min-h-[720px]"
               >
-                {/* Background */}
-                <img
-                  src={slide.bg}
-                  alt=""
-                  className="absolute inset-0 h-full w-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/30" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                {/* Background — slide 1 uses brand-color gradient (so the
+                    3D model owns the focus); other slides use photography. */}
+                {slide.show3D ? (
+                  <>
+                    <div className="absolute inset-0 bg-[#0A0A0A]" />
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        background:
+                          "radial-gradient(ellipse 80% 60% at 75% 50%, rgba(0,114,188,0.55) 0%, rgba(0,114,188,0.18) 35%, rgba(10,10,10,0) 70%)",
+                      }}
+                    />
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        background:
+                          "linear-gradient(110deg, #0A0A0A 0%, #0A0A0A 35%, rgba(0,40,80,0.6) 65%, rgba(0,90,160,0.45) 100%)",
+                      }}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <img
+                      src={slide.bg}
+                      alt=""
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/30" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                  </>
+                )}
 
                 {/* Content grid */}
                 <div className="relative z-10 mx-auto max-w-[1400px] px-6 sm:px-10 lg:px-12 h-full">
