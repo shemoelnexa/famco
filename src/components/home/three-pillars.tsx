@@ -1,7 +1,5 @@
 import Link from "next/link";
 import { ArrowRight, Gavel, ShoppingCart, Truck } from "lucide-react";
-import { ModelViewer } from "@/components/3d/model-viewer";
-import { MODELS } from "@/lib/models-3d";
 import { AnimateIn } from "@/components/ui/animate-in";
 
 const pillars = [
@@ -13,8 +11,7 @@ const pillars = [
     icon: ShoppingCart,
     href: "/equipment",
     cta: "Browse equipment",
-    model: MODELS["tractor-head"],
-    accent: "from-famco-blue/15 to-transparent",
+    image: "/images/products/product-3.jpg",
   },
   {
     eyebrow: "Live Auctions",
@@ -24,8 +21,7 @@ const pillars = [
     icon: Gavel,
     href: "/auctions",
     cta: "View auctions",
-    model: MODELS["excavator"],
-    accent: "from-amber-400/15 to-transparent",
+    image: "/images/products/product-10.jpg",
   },
   {
     eyebrow: "Shipping & Logistics",
@@ -35,8 +31,7 @@ const pillars = [
     icon: Truck,
     href: "/shipping",
     cta: "Request a quote",
-    model: MODELS["dump-truck"],
-    accent: "from-emerald-400/15 to-transparent",
+    image: "/images/trucks-banner.jpeg",
   },
 ];
 
@@ -63,30 +58,20 @@ export function ThreePillars() {
             <AnimateIn key={p.eyebrow} delay={i * 80}>
               <Link
                 href={p.href}
-                className="group relative overflow-hidden rounded-3xl bg-[#0A0A0A] text-white p-7 h-full flex flex-col transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl border border-white/[0.04]"
+                className="group relative flex flex-col h-full overflow-hidden rounded-3xl bg-[#0A0A0A] text-white transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl border border-white/[0.04]"
               >
-                {/* Gradient accent */}
-                <div
-                  className={`absolute inset-0 bg-gradient-to-br ${p.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
-                />
-
-                {/* 3D ornament */}
-                <div className="relative h-48 sm:h-56 -mx-3 mb-4 pointer-events-none">
-                  <ModelViewer
-                    src={p.model.src}
-                    alt={p.model.label}
-                    cameraOrbit={p.model.cameraOrbit}
-                    fieldOfView={p.model.fieldOfView}
-                    autoRotate
-                    cameraControls={false}
-                    disableZoom
-                    disablePan
-                    rotationPerSecond="10deg"
-                    className="w-full h-full"
+                {/* Image */}
+                <div className="relative h-56 sm:h-64 overflow-hidden">
+                  <img
+                    src={p.image}
+                    alt={p.title}
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.06]"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/40 to-transparent" />
                 </div>
 
-                <div className="relative">
+                {/* Content */}
+                <div className="flex flex-col flex-1 p-7">
                   <div className="flex items-center gap-2 mb-3">
                     <p.icon className="size-4 text-famco-blue" />
                     <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/55">
@@ -99,7 +84,7 @@ export function ThreePillars() {
                   <p className="mt-2.5 text-[14px] text-white/55 leading-relaxed">
                     {p.description}
                   </p>
-                  <div className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-medium text-famco-blue group-hover:gap-2.5 transition-all">
+                  <div className="mt-auto pt-5 inline-flex items-center gap-1.5 text-[13px] font-medium text-famco-blue group-hover:gap-2.5 transition-all">
                     {p.cta}
                     <ArrowRight className="size-3.5" />
                   </div>

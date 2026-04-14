@@ -3,8 +3,6 @@
 import Link from "next/link";
 import { Clock, Gavel, MapPin } from "lucide-react";
 import { AnimateIn } from "@/components/ui/animate-in";
-import { ModelViewer } from "@/components/3d/model-viewer";
-import { MODELS } from "@/lib/models-3d";
 
 const lots = [
   {
@@ -18,7 +16,7 @@ const lots = [
     timeLeft: "2d 14h 22m",
     badge: "Live now",
     badgeColor: "bg-rose-500",
-    model: MODELS["excavator"],
+    image: "/images/products/product-5.jpg",
   },
   {
     id: "AUC-2026-042",
@@ -31,7 +29,7 @@ const lots = [
     timeLeft: "1d 04h 11m",
     badge: "Live now",
     badgeColor: "bg-rose-500",
-    model: MODELS["tractor-head"],
+    image: "/images/products/product-21.jpg",
   },
   {
     id: "AUC-2026-043",
@@ -44,7 +42,7 @@ const lots = [
     timeLeft: "4d 09h 47m",
     badge: "Closing soon",
     badgeColor: "bg-amber-500",
-    model: MODELS["wheel-loader"],
+    image: "/images/products/product-12.jpg",
   },
   {
     id: "AUC-2026-044",
@@ -57,7 +55,7 @@ const lots = [
     timeLeft: "5d 18h 03m",
     badge: "New listing",
     badgeColor: "bg-emerald-500",
-    model: MODELS["dump-truck"],
+    image: "/images/products/product-18.jpg",
   },
 ];
 
@@ -91,19 +89,12 @@ export function LiveAuctions() {
           {lots.map((lot, i) => (
             <AnimateIn key={lot.id} delay={i * 70}>
               <div className="group flex flex-col h-full overflow-hidden rounded-2xl bg-white border border-black/[0.06] transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-                {/* 3D thumbnail */}
-                <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-[#F4F4F4] to-[#E9E9E9]">
-                  <ModelViewer
-                    src={lot.model.src}
+                {/* Static image thumbnail */}
+                <div className="relative aspect-[4/3] overflow-hidden bg-[#F0EFEE]">
+                  <img
+                    src={lot.image}
                     alt={lot.title}
-                    cameraOrbit={lot.model.cameraOrbit}
-                    fieldOfView={lot.model.fieldOfView}
-                    autoRotate
-                    cameraControls
-                    disableZoom
-                    disablePan
-                    rotationPerSecond="14deg"
-                    className="absolute inset-0"
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-white/95 backdrop-blur-sm px-2.5 py-1 text-[10px] font-semibold text-black shadow-sm">
                     <span className={`size-1.5 rounded-full ${lot.badgeColor} animate-pulse-dot`} />
@@ -135,7 +126,7 @@ export function LiveAuctions() {
                     {lot.location}
                   </p>
 
-                  <div className="mt-4 pt-4 border-t border-black/[0.06]">
+                  <div className="mt-auto pt-4 border-t border-black/[0.06]">
                     <div className="flex items-end justify-between">
                       <div>
                         <div className="text-[11px] text-black/40 uppercase tracking-wide">

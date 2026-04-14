@@ -62,7 +62,7 @@ const slides = [
       "Live and timed auctions on inspected equipment from across the GCC. Transparent bidding, verified condition.",
     bg: "/images/trucks-banner.jpeg",
     cta: { label: "View auctions", href: "/auctions" },
-    show3D: true,
+    show3D: false,
   },
   {
     key: "shipping",
@@ -73,7 +73,7 @@ const slides = [
       "FAMCO's logistics network moves machines across the GCC and beyond — by road, sea, and air.",
     bg: "/images/trucks-portrait.jpeg",
     cta: { label: "Request a quote", href: "/shipping" },
-    show3D: true,
+    show3D: false,
   },
 ];
 
@@ -143,7 +143,11 @@ export function Hero() {
 
                 {/* Content grid */}
                 <div className="relative z-10 mx-auto max-w-[1400px] px-6 sm:px-10 lg:px-12 h-full">
-                  <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,520px)] gap-10 items-end h-full pt-16 sm:pt-24 pb-16 sm:pb-20 min-h-[640px] sm:min-h-[720px]">
+                  <div
+                    className={`grid grid-cols-1 gap-10 items-end h-full pt-16 sm:pt-24 pb-16 sm:pb-20 min-h-[640px] sm:min-h-[720px] ${
+                      slide.show3D ? "lg:grid-cols-[1fr_minmax(0,520px)]" : ""
+                    }`}
+                  >
                     {/* Copy column */}
                     <div className="self-end">
                       <div
@@ -254,34 +258,26 @@ export function Hero() {
                       )}
                     </div>
 
-                    {/* 3D ornament column */}
+                    {/* 3D ornament — slide 1 only */}
                     {slide.show3D && (
                       <div className="hidden lg:block self-stretch relative">
                         <div className="absolute inset-0 flex items-center justify-center">
                           <ModelViewer
-                            src={
-                              idx === 0
-                                ? MODELS["tractor-head"].src
-                                : idx === 1
-                                  ? MODELS["excavator"].src
-                                  : MODELS["dump-truck"].src
-                            }
-                            alt={slide.eyebrow}
-                            cameraOrbit={
-                              idx === 0
-                                ? "45deg 75deg 8m"
-                                : idx === 1
-                                  ? "60deg 70deg 6m"
-                                  : "120deg 75deg 9m"
-                            }
-                            fieldOfView="32deg"
+                            src={MODELS["tractor-head"].src}
+                            alt="Featured machine — interactive 3D"
+                            cameraOrbit="45deg 70deg 5m"
+                            fieldOfView="36deg"
                             autoRotate
                             cameraControls
                             disableZoom
                             disablePan
                             rotationPerSecond="14deg"
+                            showInteractionPrompt
                             className="w-full h-full max-h-[520px]"
                           />
+                        </div>
+                        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 inline-flex items-center gap-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 px-3 py-1 text-[11px] font-medium text-white/80 pointer-events-none">
+                          Drag to rotate · 360°
                         </div>
                         <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-3/4 h-12 bg-famco-blue/30 blur-3xl rounded-full pointer-events-none" />
                       </div>

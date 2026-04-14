@@ -15,50 +15,55 @@ type ModelEntry = {
   fieldOfView: string;
 };
 
-// Demo-phase model registry. Mapping uses 3 sourced CC0 GLBs (Khronos Sample Assets).
-// Production phase will replace src URLs with FAMCO-specific construction-vehicle GLBs.
+// Demo-phase model registry. Uses CesiumMilkTruck (CC0, Khronos Sample Assets) as
+// the placeholder construction-vehicle GLB across all categories. Production phase
+// will replace `src` with FAMCO-specific construction-vehicle GLBs (excavator,
+// dump truck, wheel loader, etc). Camera angles vary so visually-similar listings
+// look different.
+const PLACEHOLDER_TRUCK = "/3d/CesiumMilkTruck.glb";
+
 export const MODELS: Record<ModelSlug, ModelEntry> = {
   "tractor-head": {
     slug: "tractor-head",
     label: "Tractor Head",
-    src: "/3d/CesiumMilkTruck.glb",
-    cameraOrbit: "45deg 75deg 8m",
-    fieldOfView: "30deg",
+    src: PLACEHOLDER_TRUCK,
+    cameraOrbit: "35deg 70deg 6m",
+    fieldOfView: "32deg",
   },
   "tipping-trailer": {
     slug: "tipping-trailer",
     label: "Tipping Trailer",
-    src: "/3d/CesiumMilkTruck.glb",
-    cameraOrbit: "-45deg 70deg 9m",
+    src: PLACEHOLDER_TRUCK,
+    cameraOrbit: "-40deg 75deg 6.5m",
     fieldOfView: "32deg",
   },
   "excavator": {
     slug: "excavator",
     label: "Excavator",
-    src: "/3d/CarConcept.glb",
+    src: PLACEHOLDER_TRUCK,
     cameraOrbit: "60deg 70deg 6m",
-    fieldOfView: "28deg",
+    fieldOfView: "32deg",
   },
   "wheel-loader": {
     slug: "wheel-loader",
     label: "Wheel Loader",
-    src: "/3d/ToyCar.glb",
-    cameraOrbit: "30deg 75deg 1.5m",
-    fieldOfView: "28deg",
+    src: PLACEHOLDER_TRUCK,
+    cameraOrbit: "120deg 75deg 6m",
+    fieldOfView: "32deg",
   },
   "dump-truck": {
     slug: "dump-truck",
     label: "Dump Truck",
-    src: "/3d/CesiumMilkTruck.glb",
-    cameraOrbit: "120deg 75deg 9m",
-    fieldOfView: "30deg",
+    src: PLACEHOLDER_TRUCK,
+    cameraOrbit: "-110deg 70deg 6.5m",
+    fieldOfView: "32deg",
   },
   "backhoe-loader": {
     slug: "backhoe-loader",
     label: "Backhoe Loader",
-    src: "/3d/CarConcept.glb",
-    cameraOrbit: "-60deg 70deg 7m",
-    fieldOfView: "30deg",
+    src: PLACEHOLDER_TRUCK,
+    cameraOrbit: "150deg 75deg 6m",
+    fieldOfView: "32deg",
   },
 };
 

@@ -143,9 +143,10 @@ export function ModelViewer({
           disable-zoom={disableZoom ? "" : undefined}
           disable-pan={disablePan ? "" : undefined}
           interaction-prompt={showInteractionPrompt ? "auto" : "none"}
-          shadow-intensity="0.6"
-          shadow-softness="0.9"
-          exposure="1.05"
+          shadow-intensity="1"
+          shadow-softness="0.85"
+          exposure="1.15"
+          environment-image="neutral"
           ar={ar ? "" : undefined}
           ar-modes={ar ? "webxr scene-viewer quick-look" : undefined}
           loading="lazy"
