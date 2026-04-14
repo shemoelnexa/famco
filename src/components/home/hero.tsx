@@ -16,7 +16,7 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-import { ModelViewer } from "@/components/3d/model-viewer";
+import { SketchfabViewer } from "@/components/3d/sketchfab-viewer";
 import { MODELS } from "@/lib/models-3d";
 
 const actions = [
@@ -262,17 +262,10 @@ export function Hero() {
                     {slide.show3D && (
                       <div className="hidden lg:block self-stretch relative">
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <ModelViewer
-                            src={MODELS["tractor-head"].src}
+                          <SketchfabViewer
+                            uid={MODELS["excavator"].uid}
                             alt="Featured machine — interactive 3D"
-                            cameraOrbit="45deg 70deg 5m"
-                            fieldOfView="36deg"
-                            autoRotate
-                            cameraControls
-                            disableZoom
-                            disablePan
-                            rotationPerSecond="14deg"
-                            showInteractionPrompt
+                            autoSpin={0.3}
                             className="w-full h-full max-h-[520px]"
                           />
                         </div>

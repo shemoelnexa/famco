@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ShieldCheck, Heart, ClipboardCheck, RotateCw } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
 import type { Product } from "@/lib/types";
-import { ModelViewer } from "@/components/3d/model-viewer";
+import { SketchfabViewer } from "@/components/3d/sketchfab-viewer";
 import { getModelForProduct } from "@/lib/models-3d";
 
 interface ProductCardProps {
@@ -24,16 +24,10 @@ export function ProductCard({ product }: ProductCardProps) {
       {/* Image area — interactive 3D thumbnail */}
       <Link href={`/equipment/${product.id}`} className="relative block">
         <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-[#F4F4F4] to-[#E9E9E9]">
-          <ModelViewer
-            src={model.src}
+          <SketchfabViewer
+            uid={model.uid}
             alt={product.title}
-            cameraOrbit={model.cameraOrbit}
-            fieldOfView={model.fieldOfView}
-            autoRotate
-            cameraControls
-            disableZoom
-            disablePan
-            rotationPerSecond="14deg"
+            autoSpin={0.25}
             className="absolute inset-0"
           />
 

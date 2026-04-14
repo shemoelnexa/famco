@@ -3,7 +3,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { RotateCcw, ZoomIn, X, ChevronLeft, ChevronRight, Grid2x2, Images, Box } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { ModelViewer } from "@/components/3d/model-viewer";
+import { SketchfabViewer } from "@/components/3d/sketchfab-viewer";
 import { getModelForProduct } from "@/lib/models-3d";
 
 interface ImageGalleryProps {
@@ -57,20 +57,13 @@ export function ImageGallery({ images, alt, productId, category }: ImageGalleryP
         {/* Main image area */}
         <div className="relative overflow-hidden rounded-2xl bg-[#F0EFEE] group">
           {show360 ? (
-            /* ---- Real 3D Model Viewer ---- */
+            /* ---- Real 3D Model Viewer (Sketchfab) ---- */
             <div className="aspect-[3/2] relative bg-gradient-to-br from-[#F4F4F4] to-[#E5E5E5]">
-              <ModelViewer
-                src={model.src}
+              <SketchfabViewer
+                uid={model.uid}
                 alt={`${alt} — interactive 3D view`}
-                cameraOrbit={model.cameraOrbit}
-                fieldOfView={model.fieldOfView}
-                autoRotate
-                cameraControls
-                disableZoom={false}
-                disablePan
-                ar
-                rotationPerSecond="14deg"
-                showInteractionPrompt
+                autoSpin={0.2}
+                showAr
                 className="absolute inset-0"
               />
 
@@ -78,7 +71,7 @@ export function ImageGallery({ images, alt, productId, category }: ImageGalleryP
               <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none">
                 <span className="rounded-lg bg-black/60 backdrop-blur-sm px-3 py-1.5 text-[12px] font-medium text-white inline-flex items-center gap-1.5 pointer-events-auto">
                   <Box className="size-3.5" />
-                  Interactive 3D View · Drag, zoom, AR
+                  Interactive 3D View · Drag, zoom, rotate
                 </span>
                 <button
                   onClick={() => setShow360(false)}
