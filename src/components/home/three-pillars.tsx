@@ -58,33 +58,32 @@ export function ThreePillars() {
             <AnimateIn key={p.eyebrow} delay={i * 80}>
               <Link
                 href={p.href}
-                className="group relative flex flex-col h-full overflow-hidden rounded-3xl bg-[#0A0A0A] text-white transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl border border-white/[0.04]"
+                className="group relative flex flex-col justify-end h-[460px] sm:h-[520px] overflow-hidden rounded-3xl bg-[#0A0A0A] text-white transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl border border-white/[0.04]"
               >
-                {/* Image */}
-                <div className="relative h-56 sm:h-64 overflow-hidden">
-                  <img
-                    src={p.image}
-                    alt={p.title}
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.06]"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/85 via-[#0A0A0A]/15 to-transparent" />
-                </div>
+                {/* Full-bleed image */}
+                <img
+                  src={p.image}
+                  alt={p.title}
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.06]"
+                />
+                {/* Readability gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/55 to-transparent" />
 
-                {/* Content */}
-                <div className="flex flex-col flex-1 p-7">
+                {/* Content overlaid at the bottom */}
+                <div className="relative p-7">
                   <div className="flex items-center gap-2 mb-3">
                     <p.icon className="size-4 text-famco-blue" />
-                    <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/55">
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/70">
                       {p.eyebrow}
                     </span>
                   </div>
                   <h3 className="text-[22px] font-semibold tracking-tight leading-tight">
                     {p.title}
                   </h3>
-                  <p className="mt-2.5 text-[14px] text-white/55 leading-relaxed">
+                  <p className="mt-2.5 text-[14px] text-white/70 leading-relaxed">
                     {p.description}
                   </p>
-                  <div className="mt-auto pt-5 inline-flex items-center gap-1.5 text-[13px] font-medium text-famco-blue group-hover:gap-2.5 transition-all">
+                  <div className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-medium text-famco-blue group-hover:gap-2.5 transition-all">
                     {p.cta}
                     <ArrowRight className="size-3.5" />
                   </div>
