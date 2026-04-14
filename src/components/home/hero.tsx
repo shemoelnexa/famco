@@ -97,19 +97,6 @@ export function Hero() {
     };
   }, [emblaApi]);
 
-  // Autoplay
-  useEffect(() => {
-    if (!emblaApi) return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) return;
-    const id = setInterval(() => {
-      emblaApi.scrollNext();
-    }, 7000);
-    const stop = () => clearInterval(id);
-    emblaApi.on("pointerDown", stop);
-    return () => clearInterval(id);
-  }, [emblaApi]);
-
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (search.trim()) {

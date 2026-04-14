@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { ShieldCheck, Heart, ClipboardCheck, RotateCw } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
@@ -19,23 +20,46 @@ const conditionColors: Record<string, string> = {
 
 export function ProductCard({ product }: ProductCardProps) {
   const model = getModelForProduct({ category: product.category, id: product.id });
+  const [show3D, setShow3D] = useState(false);
+
+  // Activate 3D on hover (desktop) or first tap (mobile)
+  const activate3D = () => setShow3D(true);
+
   return (
     <div className="flex flex-col overflow-hidden rounded-2xl bg-white border border-black/[0.06] transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-      {/* Image area — interactive 3D thumbnail */}
+      {/* Image area — static image by default; 3D loads on hover/tap */}
       <Link href={`/equipment/${product.id}`} className="relative block">
-        <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-[#F4F4F4] to-[#E9E9E9]">
-          <SketchfabViewer
-            uid={model.uid}
+        <div
+          className="relative aspect-[4/3] overflow-hidden bg-[#F0EFEE]"
+          onMouseEnter={activate3D}
+          onTouchStart={activate3D}
+        >
+          {/* Always-present static image */}
+          <img
+            src={product.images[0]}
             alt={product.title}
-            autoSpin={0.25}
-            className="absolute inset-0"
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ${
+              show3D ? "opacity-0" : "opacity-100"
+            }`}
           />
 
-          {/* "Drag to rotate" hint */}
-          <div className="absolute bottom-2.5 left-2.5 inline-flex items-center gap-1.5 rounded-full bg-black/60 backdrop-blur-sm px-2.5 py-1 text-[10px] font-medium text-white pointer-events-none">
-            <RotateCw className="size-3" />
-            360° View
-          </div>
+          {/* 3D viewer — only mounted after first hover/tap */}
+          {show3D && (
+            <SketchfabViewer
+              uid={model.uid}
+              alt={product.title}
+              autoSpin={0.25}
+              className="absolute inset-0"
+            />
+          )}
+
+          {/* "360° View" hint — promotes the interaction */}
+          {!show3D && (
+            <div className="absolute bottom-2.5 left-2.5 inline-flex items-center gap-1.5 rounded-full bg-black/70 backdrop-blur-sm px-2.5 py-1 text-[10px] font-medium text-white pointer-events-none">
+              <RotateCw className="size-3" />
+              Hover for 360° View
+            </div>
+          )}
 
           {/* Badges overlay */}
           <div className="absolute inset-x-0 top-0 flex items-start justify-between p-3">
@@ -58,7 +82,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
           {/* Image count */}
           {product.images.length > 1 && (
-            <div className="absolute bottom-2.5 right-2.5 rounded-md bg-black/60 backdrop-blur-sm px-2 py-0.5 text-[11px] font-medium text-white">
+            <div className="absolute bottom-2.5 right-2.5 rounded-md bg-black/60 backdrop-blur-sm px-2 py-0.5 text-[11px] font-medium text-white pointer-events-none">
               {product.images.length} photos
             </div>
           )}
