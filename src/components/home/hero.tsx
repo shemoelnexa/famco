@@ -60,7 +60,7 @@ const slides = [
     title: "Bid on certified machinery, every week",
     subtitle:
       "Live and timed auctions on inspected equipment from across the GCC. Transparent bidding, verified condition.",
-    bg: "/images/trucks-banner.jpeg",
+    bg: "/images/hero-auctions.jpg",
     cta: { label: "View auctions", href: "/auctions" },
     show3D: false,
   },
@@ -71,7 +71,7 @@ const slides = [
     title: "Ship your equipment anywhere",
     subtitle:
       "FAMCO's logistics network moves machines across the GCC and beyond — by road, sea, and air.",
-    bg: "/images/trucks-portrait.jpeg",
+    bg: "/images/hero-shipping.jpg",
     cta: { label: "Request a quote", href: "/shipping" },
     show3D: false,
   },
