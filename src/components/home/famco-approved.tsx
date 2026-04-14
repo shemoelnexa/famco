@@ -25,7 +25,7 @@ const phases = [
     title: "52-Point Inspection",
     subtitle: "Nothing hidden, nothing missed",
     icon: ClipboardCheck,
-    image: "/images/famco-approved-truck.jpg",
+    image: "/images/products/product-4.jpg",
     description:
       "Certified FAMCO engineers inspect every major system — engine, hydraulics, electrical, structural, brakes, and cabin. Each component is photographed, tested, and graded.",
     checks: [
@@ -44,7 +44,7 @@ const phases = [
     title: "Professional Refurbishment",
     subtitle: "Restored, not just cleaned",
     icon: Wrench,
-    image: "/images/famco-approved-truck.jpg",
+    image: "/images/products/product-3.jpg",
     description:
       "Machines that need work go through our in-house facility. Engine servicing, bodywork repair, component replacement, and a fresh coat of paint — we bring equipment back to working standard.",
     checks: [
@@ -61,7 +61,7 @@ const phases = [
     title: "Certified & Listed",
     subtitle: "The FAMCO Approved seal",
     icon: BadgeCheck,
-    image: "/images/famco-approved-truck.jpg",
+    image: "/images/products/product-5.jpg",
     description:
       "A second engineer reviews all work. Only machines that pass receive the FAMCO Approved certification — with a full inspection report, condition grade, and photo documentation available to buyers.",
     checks: [
