@@ -31,7 +31,7 @@ const pillars = [
     icon: Truck,
     href: "/shipping",
     cta: "Request a quote",
-    image: "/images/trucks-banner.jpeg",
+    image: "/images/hero-shipping.jpg",
   },
 ];
 
@@ -67,7 +67,7 @@ export function ThreePillars() {
                     alt={p.title}
                     className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.06]"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/40 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/85 via-[#0A0A0A]/15 to-transparent" />
                 </div>
 
                 {/* Content */}
