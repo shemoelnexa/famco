@@ -95,11 +95,7 @@ export function SketchfabViewer({
     : undefined;
 
   return (
-    <div
-      ref={containerRef}
-      className={className}
-      style={{ position: "relative", overflow: "hidden", ...style }}
-    >
+    <div ref={containerRef} className={className} style={style}>
       {inView && (
         <iframe
           key={uid}
@@ -109,8 +105,6 @@ export function SketchfabViewer({
           allowFullScreen
           onLoad={() => setLoaded(true)}
           style={{
-            position: "absolute",
-            inset: 0,
             width: "100%",
             height: "100%",
             border: 0,
