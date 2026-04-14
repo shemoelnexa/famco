@@ -58,7 +58,7 @@ export function ThreePillars() {
             <AnimateIn key={p.eyebrow} delay={i * 80}>
               <Link
                 href={p.href}
-                className="group relative flex flex-col justify-end h-[460px] sm:h-[520px] overflow-hidden rounded-3xl bg-[#0A0A0A] text-white transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl border border-white/[0.04]"
+                className="group relative flex flex-col justify-end h-[460px] sm:h-[520px] overflow-hidden rounded-3xl bg-[#0A0A0A] text-white transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl"
               >
                 {/* Full-bleed image */}
                 <img
@@ -67,7 +67,7 @@ export function ThreePillars() {
                   className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.06]"
                 />
                 {/* Readability gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/55 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/80 via-[#0A0A0A]/30 to-transparent" />
 
                 {/* Content overlaid at the bottom */}
                 <div className="relative p-7">
