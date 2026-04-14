@@ -28,7 +28,7 @@ export function ProductCard({ product }: ProductCardProps) {
           <SketchfabViewer
             uid={model.uid}
             alt={product.title}
-            autoSpin={0.25}
+            autoSpin={0}
             className="absolute inset-0"
           />
 

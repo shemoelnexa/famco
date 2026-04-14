@@ -6,7 +6,7 @@ import type { CSSProperties } from "react";
 type Props = {
   uid: string;
   alt: string;
-  /** Auto-spin speed (0 = off). Default 0.2. */
+  /** Auto-spin speed (0 = off). Default 0. */
   autoSpin?: number;
   /** Hide the bottom info bar where supported. */
   hideInfo?: boolean;
@@ -53,22 +53,46 @@ function loadSdk(): Promise<void> {
     s.src = SDK_URL;
     s.async = true;
     s.onload = () => resolve();
-    s.onerror = () => reject(new Error("Failed to load Sketchfab SDK"));
+    s.onerror = () => {
+      sdkPromise = null;
+      reject(new Error("SDK load failed"));
+    };
     document.head.appendChild(s);
   });
   return sdkPromise;
 }
 
-/**
- * Sketchfab embed with auto-recentering camera.
- * Lazy-mounts the iframe when scrolled into view, then uses the Sketchfab
- * Viewer SDK to (a) initialize the model and (b) call recenterCamera() on
- * viewerready so it fills the container regardless of the author's saved camera.
- */
+function buildEmbedUrl(opts: {
+  uid: string;
+  autoSpin: number;
+  hideInfo: boolean;
+  disableInteraction: boolean;
+  showAr: boolean;
+}) {
+  const params = new URLSearchParams({
+    autostart: "1",
+    transparent: "1",
+    preload: "1",
+    ui_animations: "0",
+    ui_inspector: "0",
+    ui_settings: "0",
+    ui_stop: "0",
+    ui_help: "0",
+    ui_hint: "0",
+    ui_loading: "0",
+    annotations_visible: "0",
+    autospin: String(opts.autoSpin),
+    ui_infos: opts.hideInfo ? "0" : "1",
+    ui_ar: opts.showAr ? "1" : "0",
+    ...(opts.disableInteraction ? { camera: "0", ui_controls: "0" } : {}),
+  });
+  return `https://sketchfab.com/models/${opts.uid}/embed?${params.toString()}`;
+}
+
 export function SketchfabViewer({
   uid,
   alt,
-  autoSpin = 0.2,
+  autoSpin = 0,
   hideInfo = true,
   disableInteraction = false,
   showAr = false,
@@ -104,21 +128,35 @@ export function SketchfabViewer({
     return () => obs.disconnect();
   }, []);
 
-  // SDK init when in view
+  // Initialize the embed when in view
   useEffect(() => {
     if (!inView) return;
     const iframe = iframeRef.current;
     if (!iframe) return;
     let cancelled = false;
-    let started = false;
+    let sdkUsed = false;
 
+    // Hard fallback: if SDK doesn't take over and recenter within 3s,
+    // load plain embed URL so the user always sees the model.
+    const fallbackTimer = window.setTimeout(() => {
+      if (cancelled || sdkUsed) return;
+      iframe.src = buildEmbedUrl({
+        uid,
+        autoSpin,
+        hideInfo,
+        disableInteraction,
+        showAr,
+      });
+    }, 3000);
+
+    // Try the SDK path — gives us recenterCamera() for proper framing.
     loadSdk()
       .then(() => {
-        if (cancelled || !window.Sketchfab) {
-          if (!cancelled) setLoaded(true);
-          return;
-        }
-        const client = new window.Sketchfab("1.12.1", iframe);
+        if (cancelled || !window.Sketchfab) return;
+        sdkUsed = true;
+        window.clearTimeout(fallbackTimer);
+
+        const client = new window.Sketchfab("1.0.0", iframe);
         client.init(uid, {
           autostart: 1,
           preload: 1,
@@ -138,38 +176,50 @@ export function SketchfabViewer({
           ui_ar: showAr ? 1 : 0,
           success: (api) => {
             if (cancelled) return;
-            api.start();
+            // Listener attached BEFORE start so we never miss the event.
             api.addEventListener("viewerready", () => {
               if (cancelled) return;
               try {
                 api.recenterCamera();
+                // Some models need a second pass once meshes finish loading.
+                window.setTimeout(() => {
+                  try {
+                    api.recenterCamera();
+                  } catch {
+                    /* ignore */
+                  }
+                }, 600);
               } catch {
-                // ignore — some models throw; framing fallback below
+                /* ignore */
               }
-              if (!started) {
-                started = true;
-                setLoaded(true);
-              }
+              setLoaded(true);
             });
-            // Fallback in case viewerready never fires
-            setTimeout(() => {
-              if (!cancelled && !started) {
-                started = true;
-                setLoaded(true);
-              }
-            }, 4000);
+            api.start();
+            // Final safety: if viewerready never fires, reveal anyway.
+            window.setTimeout(() => {
+              if (!cancelled) setLoaded(true);
+            }, 5000);
           },
           error: () => {
-            if (!cancelled) setLoaded(true);
+            if (cancelled) return;
+            // SDK init failed — fall back to plain iframe URL.
+            iframe.src = buildEmbedUrl({
+              uid,
+              autoSpin,
+              hideInfo,
+              disableInteraction,
+              showAr,
+            });
           },
         });
       })
       .catch(() => {
-        if (!cancelled) setLoaded(true);
+        // SDK script failed to load — fallback timer will handle it.
       });
 
     return () => {
       cancelled = true;
+      window.clearTimeout(fallbackTimer);
     };
   }, [inView, uid, autoSpin, hideInfo, disableInteraction, showAr]);
 
@@ -177,7 +227,7 @@ export function SketchfabViewer({
     <div
       ref={containerRef}
       className={className}
-      style={{ position: "relative", ...style }}
+      style={{ position: "relative", overflow: "hidden", ...style }}
     >
       {inView && (
         <iframe
@@ -185,7 +235,10 @@ export function SketchfabViewer({
           title={alt}
           allow="autoplay; fullscreen; xr-spatial-tracking"
           allowFullScreen
+          onLoad={() => setLoaded(true)}
           style={{
+            position: "absolute",
+            inset: 0,
             width: "100%",
             height: "100%",
             border: 0,

@@ -26,7 +26,7 @@ import {
   CATEGORY_SLUGS,
 } from "@/lib/types";
 
-const ITEMS_PER_PAGE = 12;
+const ITEMS_PER_PAGE = 6;
 
 const DEFAULT_FILTERS: FilterState = {
   categories: [],

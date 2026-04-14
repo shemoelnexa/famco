@@ -62,7 +62,7 @@ export function ImageGallery({ images, alt, productId, category }: ImageGalleryP
               <SketchfabViewer
                 uid={model.uid}
                 alt={`${alt} — interactive 3D view`}
-                autoSpin={0.2}
+                autoSpin={0}
                 showAr
                 className="absolute inset-0"
               />

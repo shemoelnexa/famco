@@ -252,7 +252,7 @@ export function Hero() {
                           <SketchfabViewer
                             uid={MODELS["excavator"].uid}
                             alt="Featured machine — interactive 3D"
-                            autoSpin={0.3}
+                            autoSpin={0}
                             className="w-full h-full max-h-[520px]"
                           />
                         </div>
