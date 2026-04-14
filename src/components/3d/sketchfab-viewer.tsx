@@ -84,7 +84,7 @@ export function SketchfabViewer({
           }
         }
       },
-      { rootMargin: "100px" }
+      { rootMargin: "600px" }
     );
     obs.observe(node);
     return () => obs.disconnect();

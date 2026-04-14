@@ -28,6 +28,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        {/* Warm connection to Sketchfab CDNs so 3D viewers start loading
+            faster — saves DNS + TLS handshake on every iframe mount. */}
+        <link rel="preconnect" href="https://sketchfab.com" />
+        <link rel="preconnect" href="https://static.sketchfab.com" crossOrigin="" />
+        <link rel="preconnect" href="https://media.sketchfab.com" crossOrigin="" />
+        <link rel="dns-prefetch" href="https://sketchfab.com" />
+        <link rel="dns-prefetch" href="https://static.sketchfab.com" />
+        <link rel="dns-prefetch" href="https://media.sketchfab.com" />
+      </head>
       <body className={`${inter.variable} font-sans antialiased`}>
         <Header />
         <main>{children}</main>
